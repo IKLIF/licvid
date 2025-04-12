@@ -85,14 +85,17 @@ class SocketConn_Binance(websocket.WebSocketApp):
                 if go:
                     self.ist_5m.append(msg)
                     msg['licvidations'] = licvidations
-                    self.q.put(msg)
+                    worker(msg)
+                    #self.q.put(msg)
 
-def worker(q):
+def worker(task):#q):
     API = '7322937059:AAHWbYHdmMXhZxNuBK8ujPC8agYuFScxTkw'
     bot = telebot.TeleBot(API)
 
-    while True:
-        task = q.get()  # Получаем задачу из очереди
+    #while True:
+    z = True
+    if z:
+        #task = q.get()  # Получаем задачу из очереди
         #if task is None:
             #print(task)
 
@@ -122,8 +125,8 @@ def worker(q):
 
 def main():
     q = queue.Queue()
-    t = threading.Thread(target=worker, args=(q,))
-    t.start()
+    #t = threading.Thread(target=worker, args=(q,))
+    #t.start()
     while True:
         zx = threading.Thread(target=SocketConn_Binance, args=(f'wss://fstream.binance.com/ws/!forceOrder@arr',q,))
 
