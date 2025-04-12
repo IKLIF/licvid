@@ -10,14 +10,14 @@ import telebot
 from telebot import types
 
 class SocketConn_Binance(websocket.WebSocketApp):
-    def __init__(self, url,q):
+    def __init__(self, url,):#q):
         super().__init__(url=url, on_open=self.on_open)
 
         self.on_message = lambda ws, msg: self.message(msg)
         self.on_error = lambda ws, e: self.on_errors(f'{traceback.format_exc()}')
         self.on_close = lambda ws: self.on_closes('CLOSING')
 
-        self.q = q
+        #self.q = q
 
         self.df = None
 
@@ -124,11 +124,11 @@ def worker(task):#q):
         time.sleep(1)
 
 def main():
-    q = queue.Queue()
+    #q = queue.Queue()
     #t = threading.Thread(target=worker, args=(q,))
     #t.start()
     while True:
-        zx = threading.Thread(target=SocketConn_Binance, args=(f'wss://fstream.binance.com/ws/!forceOrder@arr',q,))
+        zx = threading.Thread(target=SocketConn_Binance, args=(f'wss://fstream.binance.com/ws/!forceOrder@arr',))#q,))
 
         zx.start()
         zx.join()
