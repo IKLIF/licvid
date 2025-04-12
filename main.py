@@ -73,7 +73,7 @@ class SocketConn_Binance(websocket.WebSocketApp):
             #print(self.df)
             print(licvidations)
 
-            if msg.get('ap') != None and licvidations > 10000 and licvidations > msg.get('ap')*6: #ЭТА СТРОКА!!!!!!!!
+            if msg.get('ap') != None and licvidations > 30000 and licvidations > msg.get('ap')*6: #ЭТА СТРОКА!!!!!!!!
                 go = True
                 for i in self.ist_5m:
                     if i.get('s') == msg.get('s') and i.get('S') == msg.get('S'):
